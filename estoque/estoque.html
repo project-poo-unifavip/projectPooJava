@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jc_Araujo</title>
+    <link rel="stylesheet" href="estoque.css">
+    <style>
+        .estoque{
+            position: absolute;
+            left: 265px;
+            top: 95px;
+            font-size: 34px;
+        }
+
+        .search-bar {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 300px;
+            height: 40px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+            left: 1100px;
+            top: 40px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            height: 100%;
+            padding: 0 10px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .search-bar svg {
+            position: absolute;
+            right: 10px;
+            fill: #ccc;
+            pointer-events: none;
+        }
+
+        .button-cadastro {
+            margin-top: 25px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-left: 250px;
+            height: 25px;
+            text-align: center;
+            align-items: left;
+            width: 300px;
+            display: block;
+        }
+
+        .button-cadastro:hover {
+            background-color: #45a049;
+            
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+        }
+
+        .popup input {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .popup button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .popup button:hover {
+            background-color: #45a049;
+        }
+
+        .popup-close {
+            background-color: #f44336;
+            margin-top: 10px;
+        }
+
+        .popup-close:hover {
+            background-color: #e53935;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="user-info">
+            <img src="pngs/perfil.png" alt="User avatar">
+            <div>
+                <h4>Araujo</h4>
+                <p>Gestor</p>
+            </div>
+        </div>
+        <div class="dropdown">
+            <img src="pngs/seta do perfil usuario.png" alt="Dropdown icon">
+            <div class="dropdown-content">
+                <a href="#">Perfil</a>
+                <a href="#">Configurações</a>
+                <a href="#">Sair</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="sidebar">
+        <a href="/dashboard/dashboard.html">Dashboard</a>
+        <a href="estoque.html" class="active">Estoque</a>
+        <a href="/relatórios/relatorios.html">Relatórios</a>
+    </div>
+
+    <div class="estoque">
+        <svg width="117" height="29" viewBox="0 0 117 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0.464 23V0.439999H15.472V3.704H4.4V9.912H14.768V13.176H4.4V19.736H15.472V23H0.464ZM24.6312 23.32C23.7565 23.32 22.9032 23.2453 22.0712 23.096C21.2605 22.9467 20.5139 22.744 19.8312 22.488C19.1485 22.2107 18.5512 21.8693 18.0392 21.464L19.0632 18.84C19.5965 19.1813 20.1725 19.48 20.7912 19.736C21.4099 19.992 22.0499 20.184 22.7112 20.312C23.3725 20.44 24.0232 20.504 24.6632 20.504C25.6872 20.504 26.4445 20.3333 26.9352 19.992C27.4472 19.6293 27.7032 19.16 27.7032 18.584C27.7032 18.0933 27.5325 17.72 27.1912 17.464C26.8712 17.1867 26.3805 16.984 25.7192 16.856L22.5192 16.248C21.1965 15.992 20.1832 15.512 19.4792 14.808C18.7965 14.0827 18.4552 13.1547 18.4552 12.024C18.4552 11 18.7325 10.1147 19.2872 9.368C19.8632 8.62133 20.6525 8.04533 21.6552 7.64C22.6579 7.23467 23.8099 7.032 25.1112 7.032C25.8579 7.032 26.5832 7.10667 27.2872 7.256C27.9912 7.384 28.6525 7.58667 29.2712 7.864C29.9112 8.12 30.4659 8.46133 30.9352 8.888L29.8472 11.512C29.4419 11.1707 28.9725 10.8827 28.4392 10.648C27.9059 10.392 27.3512 10.2 26.7752 10.072C26.2205 9.92267 25.6765 9.848 25.1432 9.848C24.0979 9.848 23.3192 10.0293 22.8072 10.392C22.3165 10.7547 22.0712 11.2347 22.0712 11.832C22.0712 12.28 22.2205 12.6533 22.5192 12.952C22.8179 13.2507 23.2765 13.4533 23.8952 13.56L27.0952 14.168C28.4819 14.424 29.5272 14.8933 30.2312 15.576C30.9565 16.2587 31.3192 17.176 31.3192 18.328C31.3192 19.3733 31.0419 20.2693 30.4872 21.016C29.9325 21.7627 29.1539 22.3387 28.1512 22.744C27.1485 23.128 25.9752 23.32 24.6312 23.32ZM41.4257 23.32C39.335 23.32 37.7777 22.7973 36.7537 21.752C35.7297 20.7067 35.2177 19.1813 35.2177 17.176V10.36H32.2097V7.352H35.2177V2.68H39.2177V7.352H43.9537V10.36H39.2177V16.952C39.2177 17.976 39.4417 18.744 39.8897 19.256C40.3377 19.768 41.063 20.024 42.0657 20.024C42.3643 20.024 42.6737 19.992 42.9837 19.928C43.323 19.864 43.6377 19.728 43.9267 19.512L44.8047 21.16C44.4443 21.68 43.911 22.092 43.2047 22.348C42.4983 22.604 41.5887 22.72 40.4757 22.72C40.0717 22.72 39.6737 22.668 39.3017 22.556C38.9297 22.444 38.5837 22.286 38.2577 22.048L38.0537 23.32H41.4257ZM57.4265 23.32C55.6655 23.32 54.0772 22.9087 52.6345 22.158C51.2218 21.4147 50.5172 20.2287 50.5172 18.592V7.352H53.5252V18.456C53.5252 19.52 53.8832 20.0927 54.5412 20.608C55.1992 21.1233 55.9125 21.3767 56.6812 21.3767C57.6065 21.3767 58.3332 21.2293 58.7392 20.944C59.1452 20.6593 59.4252 20.2853 59.4252 19.824C59.4252 19.3347 59.1452 18.9607 58.7392 18.64C58.3332 18.3187 57.6065 18.072 56.6812 18.072C55.9125 18.072 55.1992 18.3253 54.5412 18.8407C53.8832 19.3553 53.5252 19.96 53.5252 21.024V7.352H50.5172V23.32H57.4265Z"/>
+        </svg>
+    </div>
+
+    <div class="button-cadastro" onclick="openPopup()">Cadastrar Produto</div>
+
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <form id="product-form">
+                <label for="productCode">Código do Produto</label>
+                <input type="text" id="productCode" name="productCode" required>
+
+                <label for="name">Nome</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="category">Categoria</label>
+                <input type="text" id="category" name="category" required>
+
+                <label for="unitCost">Preço</label>
+                <input type="number" id="unitCost" name="unitCost" step="0.01" required>
+
+                <label for="profitMargin">Margem de Lucro (%)</label>
+                <input type="number" id="profitMargin" name="profitMargin" step="0.01" required>
+
+                <button type="submit">Cadastrar</button>
+                <button type="button" class="popup-close" onclick="closePopup()">Fechar</button>
+            </form>
+        </div>
+    </div>
+
+    <table id="productTable">
+      <thead>
+          <tr>
+              <th>Nome do produto</th>
+              <th>Categoria</th>
+              <th>Preço</th>
+              <th>Margem de lucro</th>
+              <th>Ação</th>
+          </tr>
+      </thead>
+      <tbody>
+          <!-- As linhas da tabela serão preenchidas com os dados da API -->
+      </tbody>
+  </table>
+
+  <script>
+      function fetchAllProducts() {
+          fetch('http://localhost:8080/products/all')
+              .then(response => response.json())
+              .then(data => {
+                  const tableBody = document.querySelector("#productTable tbody");
+                  tableBody.innerHTML = '';
+
+                  data.forEach(product => {
+                      const row = document.createElement("tr");
+
+                      row.innerHTML = `
+                          <td>${product.name}</td>
+                          <td>${product.category}</td>
+                          <td>${product.unitCost}</td>
+                          <td>${product.profitMargin}</td>
+                          <td>
+                              <button class="edit">Editar</button>
+                              <button class="delete" onclick="deleteProduct(${product.productCode})">Excluir</button>
+                          </td>
+                      `;
+
+                      tableBody.appendChild(row);
+                  });
+              })
+              .catch(error => {
+                  console.error("Erro ao buscar produtos:", error);
+              });
+      }
+
+      function deleteProduct(ID) {
+        if (confirm("Tem certeza que deseja excluir este produto?")) {
+            fetch(`http://localhost:8080/products/delete/${ID}`, {
+                method: 'DELETE',
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Produto excluído com sucesso!");
+                    fetchAllProducts();
+                } else {
+                    alert("Erro ao excluir produto.");
+                }
+            })
+            .catch(error => {
+                console.error("Erro ao excluir produto:", error);
+                alert("Erro ao excluir produto.");
+            });
+        }
+      }
+
+      window.onload = fetchAllProducts;
+  </script>
+    <script>
+        function openPopup() {
+            document.getElementById('popup').style.display = 'flex';
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        document.getElementById('product-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const productData = {
+                productCode: document.getElementById('productCode').value,
+                name: document.getElementById('name').value,
+                category: document.getElementById('category').value,
+                unitCost: parseFloat(document.getElementById('unitCost').value),
+                profitMargin: parseFloat(document.getElementById('profitMargin').value)
+            };
+
+            fetch('http://localhost:8080/products', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(productData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Produto cadastrado:', data);
+                fetchAllProducts();
+                closePopup();
+                alert('Produto cadastrado com sucesso!');
+            })
+            .catch(error => {
+                console.error('Erro ao cadastrar produto:', error);
+                alert('Erro ao cadastrar produto. Tente novamente.');
+            });
+        });
+    </script>
+</body>
+</html>

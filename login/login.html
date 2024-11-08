@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jc_Araujo</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-box">
+            <h1>Login</h1>
+            <form id="login-form">
+                <div class="input-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" placeholder="seuemail@dominio.com" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Senha</label>
+                    <a href="#" class="forgot-password">Esqueceu a senha?</a>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required>
+                </div>
+                <div class="checkbox">
+                    <input type="checkbox" id="remember-me" name="remember-me">
+                    <label for="remember-me">Lembrar senha</label>
+                </div>
+                <button type="submit" class="btn">Entrar</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+    
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+    
+            const formData = {
+                username: email,
+                password: password
+            };
+    
+            fetch('http://localhost:8080/user/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.text()) 
+            .then(data => {
+                if (data === 'Login successful') {
+                    window.location.href = '/dashboard/dashboard.html';
+                } else {
+                    console.error('Erro:', data);
+                    alert('Login falhou: ' + data);
+                }
+            })
+            .catch((error) => {
+                console.error('Erro:', error);
+                alert('Erro na requisição: ' + error);
+            });
+        });
+    </script>
+    
+</body>
+</html>
